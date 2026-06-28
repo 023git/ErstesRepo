@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic-Tac-Toe</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#1e293b;
+    color:white;
+    text-align:center;
+}
+
+h1{
+    margin-top:20px;
+}
+
+#spielfeld{
+    width:306px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(3,100px);
+    gap:3px;
+}
+
+.feld{
+    width:100px;
+    height:100px;
+    background:#334155;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:50px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.feld:hover{
+    background:#475569;
+}
+
+button{
+    padding:10px 20px;
+    font-size:18px;
+    margin-top:15px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Tic-Tac-Toe</h1>
+
+<h2 id="status">Spieler X ist am Zug</h2>
+
+<div id="spielfeld"></div>
+
+<button onclick="neuStart()">Neues Spiel</button>
+
+<script>
+const spielfeld = document.getElementById("spielfeld");
+const statusText = document.getElementById("status");
+
+let spieler = "X";
+let felder = ["","","","","","","","",""];
+let spielAktiv = true;
+
+const gewinnen = [
+[0,1,2],
+[3,4,5],
+[6,7,8],
+[0,3,6],
+[1,4,7],
+[2,5,8],
+[0,4,8],
+[2,4,6]
+];
+
+function zeichnen(){
+    spielfeld.innerHTML="";
+
+    felder.forEach((wert,index)=>{
+        const feld=document.createElement("div");
+        feld.className="feld";
+        feld.textContent=wert;
+
+        feld.onclick=()=>{
+            if(felder[index]==="" && spielAktiv){
+                felder[index]=spieler;
+                pruefen();
+                zeichnen();
+            }
+        };
+
+        spielfeld.appendChild(feld);
+    });
+}
+
+function pruefen(){
+
+    for(let kombi of gewinnen){
+        let [a,b,c]=kombi;
+
+        if(
+            felder[a] &&
+            felder[a]===felder[b] &&
+            felder[a]===felder[c]
+        ){
+            statusText.textContent="🎉 Spieler "+spieler+" gewinnt!";
+            spielAktiv=false;
+            return;
+        }
+    }
+
+    if(!felder.includes("")){
+        statusText.textContent="🤝 Unentschieden!";
+        spielAktiv=false;
+        return;
+    }
+
+    spieler = spieler==="X" ? "O" : "X";
+    statusText.textContent="Spieler "+spieler+" ist am Zug";
+}
+
+function neuStart(){
+    felder=["","","","","","","","",""];
+    spieler="X";
+    spielAktiv=true;
+    statusText.textContent="Spieler X ist am Zug";
+    zeichnen();
+}
+
+zeichnen();
+</script>
+
+</body>
+</html>
