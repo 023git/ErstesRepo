@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Webseite</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.2);
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            color: #0077cc;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        #zahl {
+            font-size: 40px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Willkommen!</h1>
+    <p>Drücke den Button und zähle hoch.</p>
+
+    <div id="zahl">0</div>
+
+    <button onclick="hochzaehlen()">+1</button>
+</div>
+
+<script>
+let zaehler = 0;
+
+function hochzaehlen() {
+    zaehler++;
+    document.getElementById("zahl").textContent = zaehler;
+}
+</script>
+
+</body>
+</html>
